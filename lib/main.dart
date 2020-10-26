@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -26,50 +25,48 @@ class SimpleCalculator extends StatefulWidget {
 }
 
 class _SimpleCalculatorState extends State<SimpleCalculator> {
-  String equation="0";
-  String result="0";
-  String expression="";
-  double equationFontsize=38.0;
-  double resultFontsize=48.0;
+  String equation = "0";
+  String result = "0";
+  String expression = "";
+  double equationFontsize = 38.0;
+  double resultFontsize = 48.0;
 
   buttonPressed(String buttonText) {
     setState(() {
-  if(buttonText=="C"){ //this is CLEAR button
-    equation="0";
-    result="0";
-  }
-  else if(buttonText=="⌫"){ //this is DELETE button
-    equation=equation.substring(0,equation.length-1);
-    if(equation==""){
-      equation='0';
-    }
-  }
-  else if(buttonText=="="){
-      expression=equation;
-      try{
-        Parser parser = Parser();
-        Expression exp= parser.parse(expression);
+      if (buttonText == "C") {
+        //this is CLEAR button
+        equation = "0";
+        result = "0";
+      } else if (buttonText == "⌫") {
+        //this is DELETE button
+        equation = equation.substring(0, equation.length - 1);
+        if (equation == "") {
+          equation = '0';
+        }
+      } else if (buttonText == "=") {
+        expression = equation;
+        try {
+          Parser parser = Parser();
+          Expression exp = parser.parse(expression);
 
-        ContextModel cm= ContextModel();
-        result= "${exp.evaluate(EvaluationType.REAL, cm)}";
+          ContextModel cm = ContextModel();
+          result = "${exp.evaluate(EvaluationType.REAL, cm)}";
+        } catch (e) {
+          result = 'Error';
+        }
+      } else {
+        if (equation == "0") {
+          equation = buttonText;
+        } else {
+          equation = equation + buttonText;
+        }
       }
-      catch(e){
-        result='Error';
-      }
-  }
-  else{
-    if(equation=="0"){
-     equation=buttonText;
-    }
-    else{
-      equation=equation+buttonText;
-    }
-    }
-  }
-    );
+    });
   }
 
-  Widget buildButton(String buttonText, double buttonHeight, Color buttonColor) {
+/*this function is for building button*/
+  Widget buildButton(
+      String buttonText, double buttonHeight, Color buttonColor) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.1 * buttonHeight,
       color: buttonColor,
@@ -101,7 +98,6 @@ class _SimpleCalculatorState extends State<SimpleCalculator> {
     return Scaffold(
       appBar: AppBar(title: Text("Basic Calculator with Flutter")),
       body: Column(
-
         children: <Widget>[
           //equation container
           Container(
