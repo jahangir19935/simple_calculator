@@ -32,6 +32,7 @@ class _SimpleCalculatorState extends State<SimpleCalculator> {
 
   buttonPressed(String buttonText) {
     setState(() {
+      //this is the logic of calculator
       if (buttonText == "C") {
         //this is CLEAR button
         equation = "0";
