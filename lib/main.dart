@@ -120,6 +120,7 @@ class _SimpleCalculatorState extends State<SimpleCalculator> {
           ),
           Expanded(child: Divider()),
 
+          //This is the row of number keys
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
